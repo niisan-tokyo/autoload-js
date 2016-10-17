@@ -1,0 +1,30 @@
+{
+  "name": "ns-autoloader",
+  "version": "0.0.1",
+  "description": "The auto module loader like php autoloader.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {
+    "fs-readdir-recursive": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niisan-tokyo/autoload-js.git"
+  },
+  "keywords": [
+    "php",
+    "autoload"
+  ],
+  "author": "niisan-tokyo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/niisan-tokyo/autoload-js/issues"
+  },
+  "homepage": "https://github.com/niisan-tokyo/autoload-js#readme"
+}

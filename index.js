@@ -1,22 +1,42 @@
-const recursive = require('recursive-readdir');
+const recursive = require('fs-readdir-recursive');
 
-const autoloader = (dirname) => {
-    readdir(dirname)
-    .then(files => {
-        console.log(files)
-    })
+let namespace = {_pathList: {}}
+
+function filter(name) {
+    return name.slice(-3) === '.js'
 }
 
-function readdir(dirname) {
-    return new Promise((res, rej) => {
-        recursive(dirname, [], (err, files) => {
-            if (err == null) {
-                res(files)
-            } else {
-                rej(err)
-            }
-        })
-    })
+function setName(name) {
+    arr = name.split('/')
+    temp = namespace
+    length = arr.length
+    for (i = 0; i < length; i++) {
+        if (i != length - 1) {
+            temp[arr[i]] = temp[arr[i]] || {}
+            temp = temp[arr[i]]
+        } else {
+            setLoader(temp, arr[i], name)
+        }
+    }
+}
+
+function setLoader(nameobj, filename, path) {
+    classname = filename.slice(0, -3)
+    Object.defineProperty(nameobj, classname, {get: () => {
+        if (typeof namespace._pathList[path] == 'undefined') {
+            namespace._pathList[path] = require(namespace._basePath + path)
+        }
+
+        return namespace._pathList[path]
+    }})
+}
+
+const autoloader = (dirname, appName) => {
+    paths = recursive(dirname)
+    namespace._basePath = dirname + '/'
+    mods = paths.filter(filter);
+    mods.forEach(setName)
+    global[appName] = namespace;
 }
 
 module.exports = autoloader
