@@ -65,7 +65,7 @@ const autoloader = {
     },
 
     nameRule(name) {
-        return name.replace(/[._\-]+(.)/g, '$1'.toUpperCase())
+        return name.replace(/[._\-]+(.)/g, s => s.charAt(s.length - 1).toUpperCase())
     }
 }
 
