@@ -1,6 +1,6 @@
 {
   "name": "ns-autoloader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The auto module loader like php autoloader.",
   "main": "index.js",
   "directories": {
