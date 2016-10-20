@@ -1,14 +1,27 @@
-# autoload-js
+# ns-autoloader
 The autoloader for javascript ( nodejs )
 
-# Usage
+# Outline
+
+## installation
+
+You can install ns-autoloader with following command:
 
 ```
-const autoload = require('./index.js')
+npm install ns-autoloader
+```
 
-autoload.registerApps(__dirname + '/app', app)
-autoload.registerModules(__dirname + '/node_modules', mod)
+## Usage
 
-const Rain = app.weather.Rain
+At the entry point, create ns-autoloader module and register apps or node modules.
+After the resitering, you can use registered apps or modules through the global object.
+
+```
+const autoload = require('ns-autoloader')
+
+autoload.registerApps(__dirname + '/app', 'yourApp')
+autoload.registerModules(__dirname + '/node_modules', 'mod')
+
+const Rain = yourApp.weather.Rain
 obj = new Rain()
 ```
