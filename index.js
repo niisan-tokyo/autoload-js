@@ -29,23 +29,16 @@ function setName(name, prefix) {
 
 function setLoader(nameobj, filename, path) {
     classname = filename.slice(0, -3)
-    Object.defineProperty(nameobj, classname, {get: () => {
-        if (typeof namespace._pathList[path] == 'undefined') {
-            namespace._pathList[path] = require(namespace._basePath + path)
-        }
-
-        return namespace._pathList[path]
-    }})
+    Object.defineProperty(nameobj, classname, {get: () => require(namespace._basePath + path)})
 }
 
 function setModule(obj, name) {
-    Object.defineProperty(obj, name, {get: () => {
-        if (typeof namespace._modList[name] == 'undefined') {
-            namespace._modList[name] = require(name)
-        }
+    let modName = nameRule(name)
+    Object.defineProperty(obj, modName, {get: () => require(name)})
+}
 
-        return namespace._modList[name]
-    }})
+function nameRule(name) {
+    return name.replace(/[._\-]+(.)/g, s => s.charAt(s.length - 1).toUpperCase())
 }
 
 const autoloader = {
@@ -62,10 +55,6 @@ const autoloader = {
         namespace[modName] = namespace[modName] || {}
         mods.forEach(e => setModule(namespace[modName], e))
         global[modName] = namespace[modName]
-    },
-
-    nameRule(name) {
-        return name.replace(/[._\-]+(.)/g, s => s.charAt(s.length - 1).toUpperCase())
     }
 }
 

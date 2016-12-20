@@ -20,6 +20,6 @@ describe ("using autoloader and namespace structure is put into global object", 
     it ("set modules", () => {
         loader.registerModules(__dirname + "/../node_modules", "mod")
         assert(typeof mod.mocha != 'undefined')
-        assert.equal("alMenDora", loader.nameRule("al_men._-dora"))
+        assert(typeof mod.concatMap != 'undefined')
     })
 })
